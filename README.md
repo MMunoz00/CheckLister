@@ -4,7 +4,7 @@ This is a command line hangman game, a simple letter by letter word guessing gam
 
 I created this program to learn the Kotlin programming language and to demonstrate my understanding of the language.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/H2TsIYm9cXw)
 
 # Development Environment
 
