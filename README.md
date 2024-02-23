@@ -1,32 +1,28 @@
 # Overview
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
+This is a command line hangman game, a simple letter by letter word guessing game.
 
-{Provide a description of the software that you wrote to demonstrate the Kotlin language.}
-
-{Describe your purpose for writing this software.}
-
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running and a walkthrough of the code. Focus should be on sharing what you learned about the language syntax.}
+I created this program to learn the Kotlin programming language and to demonstrate my understanding of the language.
 
 [Software Demo Video](http://youtube.link.goes.here)
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
+This program was created in Visual Studio Code v1.86.2, on a device running Windows 11 ARM. I required the use of the extensions "Kotlin language", and "vscode-runner", as well as the latest kotlin compiler, v1.9.22, and Java RunTime Environment v8.401 to create and test this program.
 
-{Describe the programming language that you used and any libraries.}
+This program was written in the Kotlin programming language as it was in February 2024
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
-- [Web Site Name](http://url.link.goes.here)
-- [Web Site Name](http://url.link.goes.here)
+- [Stack OverFlow](http://www.stackoverflow.com)
+- [GeeksforGeeks](http://www.geeksforgeeks.org)
+- [Kotlin](http://www.kotlinlang.org)
+- [Programiz](http://www.programiz.com)
+- [Baeldung](http://www.baeldung.com)
+- [ChatGPT](http://www.chat.openai.com)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-
-- Item 1
-- Item 2
-- Item 3
+- Streamline code / simplify
+- Add option to replay game with new word instead of ending program
+- Add option to add words to word list
