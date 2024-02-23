@@ -1,44 +1,210 @@
-import java.util.Scanner
+import java.io.File
+import kotlin.random.Random
 
 fun main() {
-
     var run: Boolean = true
+    var guesses = mutableListOf<Char>()
+    var wrong_guesses = 0
+    var word = getRandomWord("words.txt")
+    clearConsole()
+    drawHangMan(wrong_guesses)
+    drawWord(word)
     while (run != false) {
-        run = menu()
+        var guess = getGuess()
+        guesses += guess
+        var correct: Boolean = checkGuess(guess, word)
+        if (correct == false) {
+            ++wrong_guesses
+        }
+        clearConsole()
+        drawHangMan(wrong_guesses)
+        run = drawWord(word, guesses)
+        println("\n" + guesses + "\n")
+        if (wrong_guesses == 6) {
+            run = false
+            println("\nThe word was: " + word)
+            println("\n=========")
+            println("GAME OVER")
+            println("=========")
+        }
     }
 
 }
 
-fun menu(): Boolean {
+fun clearConsole() {
+    repeat(100) { println() }
+}
 
-    println("\nPlease make a selection:")
-    println("\t1. Test")
-    println("\t2. Quit")
+fun getRandomWord(fileName: String): String {
+    val file = File(fileName)
+    val lines = file.readLines()
+    if (lines.isNotEmpty()) {
+        val randomIndex = Random.nextInt(lines.size)
+        return lines[randomIndex]
+    }
+    return "nowords"
+}
 
-    var input = Scanner(System.`in`)
-    print("\nSelect Option: ")
-    
-    while (true)
+fun getGuess(): Char {
+    print("\nEnter a letter: ")
+    var letter = getInput()
+    return letter
+}
+
+fun getInput(): Char {
+    var input = readLine()
+    while(true) {
         try {
-            var num: Int = input.nextInt()
-            if (num == 1) {
-                println("\nThis is a test")
-                return true
-            }
-            else if (num == 2) {
-                println("\nGoodbye")
-                return false
-            }
-            else {
-                println("\nBad input")
-                input = Scanner(System.`in`)
-                print("\nSelect Option: ")
-                continue;
-            }
+            val letter = input?.let {
+                if (it.isBlank()) {
+                    throw IllegalArgumentException("Input is blank")
+                }
+                if (it.length != 1) {
+                    throw IllegalArgumentException("Input must be a single character")
+                }
+                it.single()
+            } ?: throw IllegalArgumentException("Input is null")
+            
+            val lowerLetter = letter.lowercaseChar()
+            return lowerLetter
+        } catch (e: IllegalArgumentException) {
+            println("Error: ${e.message}")
+            input = readLine()
         }
-        catch (e: java.util.InputMismatchException) {
-            println("\nBad input")
-            input = Scanner(System.`in`)
-            print("\nSelect Option: ")
+    }
+}
+
+fun checkGuess(letter: Char, word: String): Boolean {
+    if (word.contains(letter)) {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
+fun drawWord(word: String) {
+    for (letter in word) {
+        print("_")
+    }
+    println()
+}
+
+fun drawWord(word: String, guesses: MutableList<Char>): Boolean {
+    var count = word.length
+    for (letter in word) {
+        if (guesses.contains(letter)) {
+            print(letter)
+            --count
         }
+        else {
+            print("_")
+        }
+    }
+    if (count == 0) {
+        println("\n========")
+        println("YOU WIN!")
+        println("========")
+        return false
+    }
+    println()
+    return true
+}
+
+fun drawHangMan(wrong_guesses: Int) {
+    val hanged_man = arrayOf(
+        """
+  -----
+  |   |
+      |
+      |
+      |
+      |
+      |
+      |
+      |
+      |
+-------
+""",
+        """
+  -----
+  |   |
+  O   |
+      |
+      |
+      |
+      |
+      |
+      |
+      |
+-------
+""",
+        """
+  -----
+  |   |
+  O   |
+ ---  |
+  |   |
+  |   |
+      |
+      |
+      |
+      |
+-------
+""",
+        """
+  -----
+  |   |
+  O   |
+ ---  |
+/ |   |
+  |   |
+      |
+      |
+      |
+      |
+-------
+""",
+        """
+  -----
+  |   |
+  O   |
+ ---  |
+/ | \ |
+  |   |
+      |
+      |
+      |
+      |
+-------
+""",
+        """
+  -----
+  |   |
+  O   |
+ ---  |
+/ | \ |
+  |   |
+ ---  |
+/     |
+|     |
+      |
+-------
+""",
+        """
+  -----
+  |   |
+  O   |
+ ---  |
+/ | \ |
+  |   |
+ ---  |
+/   \ |
+|   | |
+      |
+-------
+"""
+    )
+
+    println(hanged_man[wrong_guesses])
 }
